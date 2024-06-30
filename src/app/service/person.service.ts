@@ -15,8 +15,8 @@ export class PersonService {
     return this.http.get<Person[]>(this.apiLink);
   }
 
-  detailsByIdGet(id: Person) {
-    return this.http.get<Person[]>(`${this.apiLink}/${id}`);
+  detailsByIdGet(id: number) {
+    return this.http.get<Person>(`${this.apiLink}/${id}`);
   }
   createPost(id: Person) {
     return this.http.post<any>(this.apiLink, id);
