@@ -80,14 +80,21 @@ export class PrincipalComponent {
   }
 
   deletePerson(id: number) {
-    this.dialog
-      .open(DeleteComponent, { data: id })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result === 'success') {
-          this.getList();
-        }
-      });
+    const person = this.listaPerson.find((p) => p.id === id);
+    if (person) {
+      this.dialog
+        .open(DeleteComponent, {
+          data: person,
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          if (result === 'success') {
+            this.getList();
+          } else {
+            this.getList();
+          }
+        });
+    }
   }
 
   openNewPostDialog(): void {
