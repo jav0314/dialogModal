@@ -1,6 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { PersonService } from '../../service/person.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,9 +13,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { Person } from '../../models/person';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-newpost',
   standalone: true,
   imports: [
     MatCardModule,
@@ -21,38 +27,31 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatFormFieldModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.css',
+  templateUrl: './newpost.component.html',
+  styleUrl: './newpost.component.css',
 })
-export class EditComponent {
-  data = inject(MAT_DIALOG_DATA);
-  dialogRef = inject(MatDialogRef<EditComponent>);
+export class NewpostComponent {
+  personForm: FormGroup;
+  dialogRef = inject(MatDialogRef<NewpostComponent>);
   personService = inject(PersonService);
   fb = inject(FormBuilder);
-
-  editForm: FormGroup;
-
   constructor() {
-    this.editForm = this.fb.group({
-      id: [{ value: this.data.id, disabled: true }],
-      name: [this.data.name],
-      email: [this.data.email],
+    this.personForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  onSave() {
-    if (this.editForm.valid) {
-      const updatedPerson = {
-        ...this.editForm.getRawValue(),
-      };
-
-      this.personService.editPut(updatedPerson).subscribe({
+  onSubmit() {
+    if (this.personForm.valid) {
+      const newPerson: Person = this.personForm.value;
+      this.personService.createPost(newPerson).subscribe({
         next: () => {
           this.dialogRef.close('success');
-          alert('Cambios realizados');
+          alert('USUARIO ' + newPerson.name + ' a sido creado');
         },
         error: (err) => {
-          console.log(err);
+          console.log(err + 'error');
           this.dialogRef.close('error');
         },
       });

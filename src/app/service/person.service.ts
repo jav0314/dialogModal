@@ -18,8 +18,8 @@ export class PersonService {
   detailsByIdGet(id: number) {
     return this.http.get<Person>(`${this.apiLink}/${id}`);
   }
-  createPost(id: Person) {
-    return this.http.post<any>(this.apiLink, id);
+  createPost(person: Person) {
+    return this.http.post<any>(this.apiLink, person);
   }
 
   deleteDel(id: number) {

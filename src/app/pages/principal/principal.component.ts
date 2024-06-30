@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsComponent } from '../../dialog/details/details.component';
 import { EditComponent } from '../../dialog/edit/edit.component';
+import { NewpostComponent } from '../../dialog/newpost/newpost.component';
 
 @Component({
   selector: 'app-principal',
@@ -60,11 +61,6 @@ export class PrincipalComponent {
       data: person,
     });
   }
-  openeditDialog(person: Person): void {
-    this.dialog.open(EditComponent, {
-      data: person,
-    });
-  }
 
   editPerson(id: number) {
     const person = this.listaPerson.find((p) => p.id === id);
@@ -93,5 +89,15 @@ export class PrincipalComponent {
         },
       });
     }
+  }
+
+  openNewPostDialog(): void {
+    const dialogRef = this.dialog.open(NewpostComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'success') {
+        this.getList();
+      }
+    });
   }
 }
