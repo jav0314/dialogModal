@@ -26,7 +26,7 @@ export class PersonService {
     return this.http.delete<any>(`${this.apiLink}/${id}`);
   }
 
-  editPut(id: number) {
-    return this.http.put<any>(this.apiLink, id);
+  editPut(person: Person) {
+    return this.http.put<any>(`${this.apiLink}/${person.id}`, person);
   }
 }

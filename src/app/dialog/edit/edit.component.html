@@ -1,0 +1,38 @@
+<mat-card style="width: 230px; margin: 20px auto">
+  <h2 mat-dialog-title>Editar Información</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSave()">
+    <mat-form-field>
+      <mat-label>ID</mat-label>
+      <input matInput formControlName="id" readonly="true" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+    <div>
+      <button
+        mat-flat-button
+        class="justify-content left"
+        style="margin: 2px"
+        color="primary"
+        type="submit"
+      >
+        Guardar
+      </button>
+      <button
+        mat-flat-button
+        class="justify-content right"
+        style="margin: 2px"
+        color="warn"
+        (click)="onCancel()"
+        type="button"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</mat-card>

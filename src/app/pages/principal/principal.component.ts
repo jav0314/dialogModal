@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsComponent } from '../../dialog/details/details.component';
+import { EditComponent } from '../../dialog/edit/edit.component';
 
 @Component({
   selector: 'app-principal',
@@ -43,18 +44,6 @@ export class PrincipalComponent {
       },
     });
   }
-  editPerson(id: any) {
-    this.personService.editPut(id).subscribe({
-      next: (data) => {
-        if (data.length > 0) {
-          this.listaPerson = data;
-        }
-      },
-      error: (err) => {
-        console.log(err + 'error');
-      },
-    });
-  }
 
   detailsPerson(id: number) {
     this.personService.detailsByIdGet(id).subscribe({
@@ -71,5 +60,27 @@ export class PrincipalComponent {
       data: person,
     });
   }
+  openeditDialog(person: Person): void {
+    this.dialog.open(EditComponent, {
+      data: person,
+    });
+  }
+
+  editPerson(id: number) {
+    const person = this.listaPerson.find((p) => p.id === id);
+    if (person) {
+      this.dialog
+        .open(EditComponent, {
+          data: person,
+        })
+        .afterClosed()
+        .subscribe((result) => {
+          if (result === 'success') {
+            this.getList();
+          }
+        });
+    }
+  }
+
   deletePerson(id: any) {}
 }

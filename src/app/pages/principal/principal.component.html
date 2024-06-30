@@ -45,7 +45,11 @@
           >
             <mat-icon>info</mat-icon>
           </button>
-          <button mat-icon-button color="accent">
+          <button
+            mat-icon-button
+            color="accent"
+            (click)="editPerson(element.id)"
+          >
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn">

@@ -7,7 +7,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Person } from '../../models/person';
 
 @Component({
   selector: 'app-details',
