@@ -82,5 +82,16 @@ export class PrincipalComponent {
     }
   }
 
-  deletePerson(id: any) {}
+  deletePerson(person: Person) {
+    if (confirm('Desea eliminar a este usuario? ' + person.name)) {
+      this.personService.deleteDel(person.id).subscribe({
+        next: () => {
+          this.getList();
+        },
+        error: (err) => {
+          console.log(err + 'error');
+        },
+      });
+    }
+  }
 }
