@@ -48,7 +48,7 @@ export class NewpostComponent {
       this.personService.createPost(newPerson).subscribe({
         next: () => {
           this.dialogRef.close('success');
-          alert('USUARIO ' + newPerson.name + ' a sido creado');
+          alert('Usuario ' + newPerson.name + ' a sido creado');
         },
         error: (err) => {
           console.log(err + 'error');

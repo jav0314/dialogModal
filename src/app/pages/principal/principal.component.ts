@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DetailsComponent } from '../../dialog/details/details.component';
 import { EditComponent } from '../../dialog/edit/edit.component';
 import { NewpostComponent } from '../../dialog/newpost/newpost.component';
+import { DeleteComponent } from '../../dialog/delete/delete.component';
 
 @Component({
   selector: 'app-principal',
@@ -78,17 +79,15 @@ export class PrincipalComponent {
     }
   }
 
-  deletePerson(person: Person) {
-    if (confirm('Desea eliminar a este usuario? ' + person.name)) {
-      this.personService.deleteDel(person.id).subscribe({
-        next: () => {
+  deletePerson(id: number) {
+    this.dialog
+      .open(DeleteComponent, { data: id })
+      .afterClosed()
+      .subscribe((result) => {
+        if (result === 'success') {
           this.getList();
-        },
-        error: (err) => {
-          console.log(err + 'error');
-        },
+        }
       });
-    }
   }
 
   openNewPostDialog(): void {

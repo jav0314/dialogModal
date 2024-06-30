@@ -1,0 +1,28 @@
+.dialog-title {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 10px; /* Incrementa el margen inferior para más espacio vertical */
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px; /* Incrementa el margen superior para más espacio vertical */
+  }
+  
+  .button-container .button {
+    flex: 1;
+    margin: 10px; /* Incrementa el margen horizontal para más separación entre los botones */
+  }
+  

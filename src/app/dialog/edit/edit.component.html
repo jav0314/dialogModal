@@ -1,38 +1,29 @@
-<mat-card style="width: 230px; margin: 20px auto">
-  <h2 mat-dialog-title>Editar Información</h2>
-  <form [formGroup]="editForm" (ngSubmit)="onSave()">
-    <mat-form-field>
-      <mat-label>ID</mat-label>
-      <input matInput formControlName="id" readonly="true" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" />
-    </mat-form-field>
-    <div>
-      <button
-        mat-flat-button
-        class="justify-content left"
-        style="margin: 2px"
-        color="primary"
-        type="submit"
-      >
-        Guardar
-      </button>
-      <button
-        mat-flat-button
-        class="justify-content right"
-        style="margin: 2px"
-        color="warn"
-        (click)="onCancel()"
-        type="button"
-      >
-        Cancelar
-      </button>
-    </div>
-  </form>
-</mat-card>
+<h2 mat-dialog-title style="margin: 20px">Editar Información</h2>
+<form [formGroup]="editForm" (ngSubmit)="onSave()" class="edit-form">
+  <mat-form-field class="full-width">
+    <mat-label>ID</mat-label>
+    <input matInput formControlName="id" readonly="true" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-flat-button class="button" type="submit" color="primary">
+      Guardar
+    </button>
+    <button
+      mat-flat-button
+      class="button"
+      type="button"
+      (click)="onCancel()"
+      color="warn"
+    >
+      Cancelar
+    </button>
+  </div>
+</form>

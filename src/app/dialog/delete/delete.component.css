@@ -1,0 +1,21 @@
+.delete-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .button-container button {
+    width: calc(50% - 5px);
+  }
+  

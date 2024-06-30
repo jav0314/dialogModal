@@ -1,0 +1,33 @@
+.edit-card {
+  width: 230px;
+  margin: 20px auto;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 48%; /* Ajusta el ancho de los botones según sea necesario */
+}
+
+.button-left {
+  justify-content: left;
+}
+
+.button-right {
+  justify-content: right;
+}

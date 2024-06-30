@@ -1,13 +1,18 @@
-<h2 mat-dialog-title>Info Person</h2>
-<mat-form-field>
-  <mat-label>ID</mat-label>
-  <input matInput [value]="data.id" readonly="true" />
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Name</mat-label>
-  <input matInput [value]="data.name" readonly="true" />
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Email</mat-label>
-  <input matInput [value]="data.email" readonly="true" />
-</mat-form-field>
+<h2 mat-dialog-title style="margin: 20px">Detalles de la Persona</h2>
+
+<div class="details-container">
+  <mat-form-field class="full-width">
+    <mat-label>ID</mat-label>
+    <input matInput [value]="data.id" readonly="true" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput [value]="data.name" readonly="true" />
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput [value]="data.email" readonly="true" />
+  </mat-form-field>
+</div>
