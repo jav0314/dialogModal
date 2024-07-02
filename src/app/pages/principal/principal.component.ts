@@ -88,11 +88,7 @@ export class PrincipalComponent {
         })
         .afterClosed()
         .subscribe((result) => {
-          if (result === 'success') {
-            this.getList();
-          } else {
-            this.getList();
-          }
+          this.getList();
         });
     }
   }
