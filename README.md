@@ -10,7 +10,7 @@ This project using [Material Angular UI](https://material.angular.io/) to create
 
 ## Install
 - Npm and node [Node installer](https://nodejs.org/en/download/package-manager)
-- -[Download nvm (a node version manager) and download versions](https://github.com/coreybutler/nvm-windows)
+- [Download nvm](https://github.com/coreybutler/nvm-windows) and download versions
   ```
   Open powershell
   check versions
