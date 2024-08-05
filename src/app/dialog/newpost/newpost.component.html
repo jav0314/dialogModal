@@ -1,12 +1,12 @@
-<h2 mat-dialog-title class="dialog-title">Editar Información</h2>
+<h2 mat-dialog-title class="dialog-title">Nuevo Registro</h2>
 <form [formGroup]="personForm" (ngSubmit)="onSubmit()" class="edit-form">
   <mat-form-field class="full-width">
     <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name" />
+    <input matInput formControlName="name" appUpperCase />
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-label>Email</mat-label>
-    <input matInput formControlName="email" />
+    <input matInput formControlName="email" appUpperCase />
   </mat-form-field>
   <div class="button-container">
     <button mat-flat-button class="button" type="submit" color="primary">

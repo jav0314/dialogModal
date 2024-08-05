@@ -3,17 +3,17 @@
 <form [formGroup]="deleteForm" (ngSubmit)="deletePerson()" class="delete-form">
   <mat-form-field class="full-width">
     <mat-label>ID</mat-label>
-    <input matInput formControlName="id" readonly="true" />
+    <input matInput formControlName="id" readonly="true" appUpperCase />
   </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name" readonly="true" />
+    <input matInput formControlName="name" readonly="true" appUpperCase />
   </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>Email</mat-label>
-    <input matInput formControlName="email" readonly="true" />
+    <input matInput formControlName="email" readonly="true" appUpperCase />
   </mat-form-field>
 
   <div class="button-container">
