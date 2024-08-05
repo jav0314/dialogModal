@@ -1,27 +1,35 @@
-# DialogAngular
+# General Información
+This is a Full Stack program using [.Net 8](https://dotnet.microsoft.com/es-es/download/dotnet/8.0) , [Angular 17](https://v17.angular.io/docs) and [SQL Server Management](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver16) 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
+It's still in development mode, creating new options, interfaces and functions. Next options in [Issues tab](https://github.com/jav0314/dialogModal/issues)
 
-## Development server
+NOTE: Part #1 is just Angular code. Part #2 is just .Net code
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Front technologies
+This project using [Material Angular UI](https://material.angular.io/) to create a interactive interface for the user. Adittionali I used node and npm to run this project.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Install
+- Npm and node [Node installer](https://nodejs.org/en/download/package-manager)
+- [Download nvm](https://github.com/coreybutler/nvm-windows) and download versions
+  ```
+  Open powershell
+  check versions
+  npm -v //10.4.4
+  node -v //20.11.0
+  ```
+- Angular 17.1.1
+  ```
+  Open powershell
+  npm install -g @angular/cli@17.1.1 
+  ```
+- Material Angular
+  ```
+  Open VS project terminal
+  ng add @angular/material
+  ```
+## How to run
+  ```
+  Open VS project terminal
+  ng g -o
+  (after running backend)
+  ```
