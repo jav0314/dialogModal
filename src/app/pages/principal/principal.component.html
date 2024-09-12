@@ -7,6 +7,15 @@
       Nueva Persona
     </button>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar por ID</mat-label>
+      <input
+        matInput
+        [formControl]="searchControl"
+        placeholder="Buscar por ID"
+      />
+    </mat-form-field>
+
     <table
       mat-table
       [dataSource]="listaPerson"

@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { PersonService } from '../../service/person.service';
 import { Person } from '../../models/person';
@@ -11,6 +12,8 @@ import { DetailsComponent } from '../../dialog/details/details.component';
 import { EditComponent } from '../../dialog/edit/edit.component';
 import { NewpostComponent } from '../../dialog/newpost/newpost.component';
 import { DeleteComponent } from '../../dialog/delete/delete.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-principal',
@@ -21,18 +24,24 @@ import { DeleteComponent } from '../../dialog/delete/delete.component';
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './principal.component.html',
-  styleUrl: './principal.component.css',
+  styleUrls: ['./principal.component.css'],
 })
-export class PrincipalComponent {
+export class PrincipalComponent implements OnInit {
   private personService = inject(PersonService);
   public listaPerson: Person[] = [];
   public displayedColumns: string[] = ['id', 'name', 'email', 'action'];
+  public searchControl = new FormControl(''); // Define searchControl here
+  public filterPerson: Person | null = null;
+
+  constructor(private dialog: MatDialog) {}
+
   ngOnInit() {
     this.getList();
   }
-  constructor(private dialog: MatDialog) {}
 
   getList() {
     this.personService.detailsGet().subscribe({
@@ -57,6 +66,7 @@ export class PrincipalComponent {
       },
     });
   }
+
   openInfoDialog(person: Person): void {
     this.dialog.open(DetailsComponent, {
       data: person,
@@ -101,5 +111,13 @@ export class PrincipalComponent {
         this.getList();
       }
     });
+  }
+
+  filterById(query: number): void {
+    if (query) {
+      this.personService.detailsByIdGet(query).subscribe((data) => {
+        this.filterPerson = data;
+      });
+    }
   }
 }
