@@ -29,4 +29,7 @@ export class PersonService {
   editPut(person: Person) {
     return this.http.put<any>(`${this.apiLink}/${person.id}`, person);
   }
+  filterId(id: number) {
+    return this.http.get<Person>(`${this.apiLink}/${id}`);
+  }
 }

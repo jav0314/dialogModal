@@ -14,6 +14,8 @@ import { NewpostComponent } from '../../dialog/newpost/newpost.component';
 import { DeleteComponent } from '../../dialog/delete/delete.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-principal',
@@ -26,6 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatInputModule,
+    CommonModule,
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css'],
@@ -34,9 +38,8 @@ export class PrincipalComponent implements OnInit {
   private personService = inject(PersonService);
   public listaPerson: Person[] = [];
   public displayedColumns: string[] = ['id', 'name', 'email', 'action'];
-  public searchControl = new FormControl(''); // Define searchControl here
-  public filterPerson: Person | null = null;
-
+  public searchControl = new FormControl('');
+  public data = this.searchControl.value;
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
@@ -113,11 +116,27 @@ export class PrincipalComponent implements OnInit {
     });
   }
 
-  filterById(query: number): void {
-    if (query) {
-      this.personService.detailsByIdGet(query).subscribe((data) => {
-        this.filterPerson = data;
-      });
+  filterById(): void {
+    const searchValue = this.searchControl.value?.trim();
+    if (searchValue === '') {
+      this.getList();
+    } else {
+      const id = Number(searchValue);
+      if (!isNaN(id)) {
+        this.personService.filterId(id).subscribe({
+          next: (data: Person) => (this.listaPerson = [data]),
+          error: (error) => {
+            this.getList();
+            console.error('Error al buscar el usuario:', error);
+          },
+        });
+      } else {
+        console.error('El valor ingresado no es un número válido.');
+      }
     }
+  }
+  clearSearch(): void {
+    this.searchControl.setValue('');
+    this.getList();
   }
 }
