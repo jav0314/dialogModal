@@ -21,6 +21,7 @@
 .search-field {
   flex: 1;
   max-width: 200px;
+  margin: 15px;
 }
 
 .search-container {

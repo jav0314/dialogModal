@@ -3,19 +3,26 @@
     <h1 class="card-title">Lista de Usuarios</h1>
   </mat-card-header>
   <mat-card-content>
+    <button mat-flat-button color="primary" (click)="filterById()">
+      Buscar por Id
+    </button>
+    <button mat-flat-button color="primary" (click)="filterByName()">
+      Buscar por Name
+    </button>
+
     <div class="search-bar">
       <mat-form-field appearance="fill" class="search-field">
-        <mat-label>Buscar por ID</mat-label>
         <div class="search-container">
           <input
             matInput
             [formControl]="searchControl"
             placeholder="Buscar por ID"
+            appNumber
           />
           <button
             mat-icon-button
             *ngIf="searchControl.value"
-            (click)="clearSearch()"
+            (click)="clearSearch('searchControl')"
             class="clear-button"
           >
             <mat-icon>clear</mat-icon>
@@ -23,9 +30,24 @@
         </div>
       </mat-form-field>
 
-      <button mat-flat-button color="primary" (click)="filterById()">
-        Buscar
-      </button>
+      <mat-form-field appearance="fill" class="search-field">
+        <div class="search-container">
+          <input
+            matInput
+            [formControl]="searchControl2"
+            placeholder="Buscar por Nombre"
+            appText
+          />
+          <button
+            mat-icon-button
+            *ngIf="searchControl2.value"
+            (click)="clearSearch('searchControl2')"
+            class="clear-button"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </mat-form-field>
     </div>
 
     <button

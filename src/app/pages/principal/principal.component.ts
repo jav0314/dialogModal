@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { NumberDirective } from '../../directives/onlyNumber/number.directive';
+import { TextDirective } from '../../directives/onlyText/text.directive';
 
 @Component({
   selector: 'app-principal',
@@ -30,6 +32,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MatInputModule,
     CommonModule,
+    NumberDirective,
+    TextDirective,
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css'],
@@ -39,6 +43,7 @@ export class PrincipalComponent implements OnInit {
   public listaPerson: Person[] = [];
   public displayedColumns: string[] = ['id', 'name', 'email', 'action'];
   public searchControl = new FormControl('');
+  public searchControl2 = new FormControl('');
   public data = this.searchControl.value;
   constructor(private dialog: MatDialog) {}
 
@@ -135,8 +140,28 @@ export class PrincipalComponent implements OnInit {
       }
     }
   }
-  clearSearch(): void {
-    this.searchControl.setValue('');
+  filterByName(): void {
+    const searchValue = this.searchControl2.value?.trim() ?? '';
+    if (searchValue === '') {
+      this.getList();
+    } else {
+      this.personService.filterName(searchValue).subscribe({
+        next: (data: Person) => {
+          this.listaPerson = [data];
+        },
+        error: (error) => {
+          this.getList();
+          console.error('Error al buscar el usuario:', error);
+        },
+      });
+    }
+  }
+  clearSearch(control: string): void {
+    if (control === 'searchControl') {
+      this.searchControl.setValue('');
+    } else if (control === 'searchControl2') {
+      this.searchControl2.setValue('');
+    }
     this.getList();
   }
 }
