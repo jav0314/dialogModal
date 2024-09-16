@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { NumberDirective } from '../../directives/onlyNumber/number.directive';
 import { TextDirective } from '../../directives/onlyText/text.directive';
+import { disableInputDirective } from '../../directives/Disable/disable.directive';
 
 @Component({
   selector: 'app-principal',
@@ -34,6 +35,7 @@ import { TextDirective } from '../../directives/onlyText/text.directive';
     CommonModule,
     NumberDirective,
     TextDirective,
+    disableInputDirective,
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css'],
@@ -121,6 +123,18 @@ export class PrincipalComponent implements OnInit {
     });
   }
 
+  selectFilter(): void {
+    const idValue = this.searchControl.value?.trim();
+    const idName = this.searchControl2.value?.trim();
+    if (idValue !== '' && !isNaN(Number(idValue))) {
+      this.filterById();
+    } else if (idName !== '') {
+      this.filterByName();
+    } else {
+      this.getList();
+    }
+  }
+
   filterById(): void {
     const searchValue = this.searchControl.value?.trim();
     if (searchValue === '') {
@@ -146,8 +160,8 @@ export class PrincipalComponent implements OnInit {
       this.getList();
     } else {
       this.personService.filterName(searchValue).subscribe({
-        next: (data: Person) => {
-          this.listaPerson = [data];
+        next: (data: Person[]) => {
+          this.listaPerson = data;
         },
         error: (error) => {
           this.getList();
@@ -156,11 +170,13 @@ export class PrincipalComponent implements OnInit {
       });
     }
   }
-  clearSearch(control: string): void {
-    if (control === 'searchControl') {
-      this.searchControl.setValue('');
-    } else if (control === 'searchControl2') {
-      this.searchControl2.setValue('');
+  clearSearch(controlName: string) {
+    if (controlName === 'searchControl') {
+      this.searchControl.reset();
+      this.searchControl2.enable();
+    } else if (controlName === 'searchControl2') {
+      this.searchControl2.reset();
+      this.searchControl.enable();
     }
     this.getList();
   }

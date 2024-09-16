@@ -33,6 +33,6 @@ export class PersonService {
     return this.http.get<Person>(`${this.apiLink}/id/${id}`);
   }
   filterName(name: string) {
-    return this.http.get<Person>(`${this.apiLink}/name/${name}`);
+    return this.http.get<Person[]>(`${this.apiLink}/name/${name}`);
   }
 }
