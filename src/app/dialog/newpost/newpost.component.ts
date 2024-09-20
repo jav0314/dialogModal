@@ -39,12 +39,14 @@ export class NewpostComponent {
     this.personForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      createDate: [new Date().toISOString().split('T')[0]],
     });
   }
 
   onSubmit() {
     if (this.personForm.valid) {
       const newPerson: Person = this.personForm.value;
+      console.log(newPerson + 'NewPerson');
       this.personService.createPost(newPerson).subscribe({
         next: () => {
           this.dialogRef.close('success');

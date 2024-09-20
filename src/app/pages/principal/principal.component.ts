@@ -19,6 +19,9 @@ import { CommonModule } from '@angular/common';
 import { NumberDirective } from '../../directives/onlyNumber/number.directive';
 import { TextDirective } from '../../directives/onlyText/text.directive';
 import { disableInputDirective } from '../../directives/Disable/disable.directive';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-principal',
@@ -36,6 +39,8 @@ import { disableInputDirective } from '../../directives/Disable/disable.directiv
     NumberDirective,
     TextDirective,
     disableInputDirective,
+    MatNativeDateModule,
+    MatDatepickerModule,
   ],
   templateUrl: './principal.component.html',
   styleUrls: ['./principal.component.css'],
@@ -43,9 +48,17 @@ import { disableInputDirective } from '../../directives/Disable/disable.directiv
 export class PrincipalComponent implements OnInit {
   private personService = inject(PersonService);
   public listaPerson: Person[] = [];
-  public displayedColumns: string[] = ['id', 'name', 'email', 'action'];
+  public displayedColumns: string[] = [
+    'id',
+    'name',
+    'email',
+    'createDate',
+    'action',
+  ];
   public searchControl = new FormControl('');
   public searchControl2 = new FormControl('');
+  public searchControl3 = new FormControl('');
+  public searchControl4 = new FormControl('');
   public data = this.searchControl.value;
   constructor(private dialog: MatDialog) {}
 
@@ -170,6 +183,12 @@ export class PrincipalComponent implements OnInit {
       });
     }
   }
+
+  filterByCreateDate(): void {
+    dayjs().format('YYYY-MM-DD');
+    console.log(dayjs().format('YYYY-MM-DD'));
+  }
+
   clearSearch(controlName: string) {
     if (controlName === 'searchControl') {
       this.searchControl.reset();

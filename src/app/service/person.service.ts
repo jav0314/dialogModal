@@ -29,10 +29,18 @@ export class PersonService {
   editPut(person: Person) {
     return this.http.put<any>(`${this.apiLink}/${person.id}`, person);
   }
+
   filterId(id: number) {
     return this.http.get<Person>(`${this.apiLink}/id/${id}`);
   }
+
   filterName(name: string) {
     return this.http.get<Person[]>(`${this.apiLink}/name/${name}`);
+  }
+
+  filterDate(dateFrom: Date, dateTo: Date) {
+    return this.http.get<Person[]>(
+      `${this.apiLink}/date/${dateFrom}/${dateTo}`
+    );
   }
 }
