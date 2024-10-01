@@ -70,7 +70,10 @@ export class PrincipalComponent implements OnInit {
     this.personService.detailsGet().subscribe({
       next: (data) => {
         if (data.length > 0) {
-          this.listaPerson = data;
+          this.listaPerson = data.map((person) => ({
+            ...person,
+            createDate: dayjs(person.createDate).format('DD-MM-YYYY HH:mm:ss'),
+          }));
         }
       },
       error: (err) => {
@@ -185,8 +188,29 @@ export class PrincipalComponent implements OnInit {
   }
 
   filterByCreateDate(): void {
-    dayjs().format('YYYY-MM-DD');
-    console.log(dayjs().format('YYYY-MM-DD'));
+    const dateFrom = dayjs(this.searchControl3.value).format(
+      'YYYY-MM-DDTHH:mm:ss'
+    );
+    //console.log(dateFrom);
+    const dateTo = dayjs(this.searchControl4.value).format(
+      'YYYY-MM-DDTHH:mm:ss'
+    );
+    //console.log(dateTo);
+
+    if (!dateFrom && !dateTo) {
+      this.getList();
+      return;
+    } else
+      this.personService.filterDate(dateFrom, dateTo).subscribe({
+        next: (data: Person[]) => {
+          console.log(data);
+          this.listaPerson = data;
+        },
+        error: (error) => {
+          this.getList();
+          console.error('Error al buscar el usuario:', error);
+        },
+      });
   }
 
   clearSearch(controlName: string) {

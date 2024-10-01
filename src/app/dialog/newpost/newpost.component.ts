@@ -14,6 +14,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Person } from '../../models/person';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 
 @Component({
   selector: 'app-newpost',
@@ -39,20 +42,21 @@ export class NewpostComponent {
     this.personForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      createDate: [new Date().toISOString().split('T')[0]],
+      createDate: [dayjs().utc(true).format()],
     });
   }
 
   onSubmit() {
     if (this.personForm.valid) {
       const newPerson: Person = this.personForm.value;
-      console.log(newPerson + 'NewPerson');
+      console.log(newPerson.createDate);
       this.personService.createPost(newPerson).subscribe({
         next: () => {
           this.dialogRef.close('success');
           alert('Usuario ' + newPerson.name + ' a sido creado');
         },
         error: (err) => {
+          alert('Usuario ' + newPerson.name + ' no ha podido ser creado');
           console.log(err + 'error');
           this.dialogRef.close('error');
         },

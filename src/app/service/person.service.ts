@@ -38,7 +38,7 @@ export class PersonService {
     return this.http.get<Person[]>(`${this.apiLink}/name/${name}`);
   }
 
-  filterDate(dateFrom: Date, dateTo: Date) {
+  filterDate(dateFrom: string, dateTo: string) {
     return this.http.get<Person[]>(
       `${this.apiLink}/date/${dateFrom}/${dateTo}`
     );
