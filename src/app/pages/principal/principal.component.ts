@@ -72,7 +72,9 @@ export class PrincipalComponent implements OnInit {
         if (data.length > 0) {
           this.listaPerson = data.map((person) => ({
             ...person,
-            createDate: dayjs(person.createDate).format('DD-MM-YYYY HH:mm:ss'),
+            createDate: dayjs(person.createDate).format(
+              'DD-MM-YYYY hh:mm:ss a'
+            ),
           }));
         }
       },
@@ -85,7 +87,11 @@ export class PrincipalComponent implements OnInit {
   detailsPerson(id: number) {
     this.personService.detailsByIdGet(id).subscribe({
       next: (data) => {
-        this.openInfoDialog(data);
+        const formattedPerson = {
+          ...data,
+          createDate: dayjs(data.createDate).format('DD-MM-YYYY hh:mm:ss a'),
+        };
+        this.openInfoDialog(formattedPerson);
       },
       error: (err) => {
         console.log(err + 'error');
@@ -142,12 +148,18 @@ export class PrincipalComponent implements OnInit {
   selectFilter(): void {
     const idValue = this.searchControl.value?.trim();
     const idName = this.searchControl2.value?.trim();
+    const idDateFrom = this.searchControl3.value?.trim();
+    const idDateTo = this.searchControl4.value?.trim();
+
     if (idValue !== '' && !isNaN(Number(idValue))) {
       this.filterById();
     } else if (idName !== '') {
       this.filterByName();
+    } else if (idDateFrom !== '' || idDateTo !== '') {
+      // Nueva condición para buscar por fechas
+      this.filterByCreateDate();
     } else {
-      this.getList();
+      this.getList(); // Si no hay filtros, mostrar la lista completa
     }
   }
 
@@ -188,13 +200,9 @@ export class PrincipalComponent implements OnInit {
   }
 
   filterByCreateDate(): void {
-    const dateFrom = dayjs(this.searchControl3.value).format(
-      'YYYY-MM-DDTHH:mm:ss'
-    );
+    const dateFrom = dayjs(this.searchControl3.value).format('DD-MM-YYYY');
     //console.log(dateFrom);
-    const dateTo = dayjs(this.searchControl4.value).format(
-      'YYYY-MM-DDTHH:mm:ss'
-    );
+    const dateTo = dayjs(this.searchControl4.value).format('DD-MM-YYYY');
     //console.log(dateTo);
 
     if (!dateFrom && !dateTo) {
@@ -203,8 +211,13 @@ export class PrincipalComponent implements OnInit {
     } else
       this.personService.filterDate(dateFrom, dateTo).subscribe({
         next: (data: Person[]) => {
-          console.log(data);
-          this.listaPerson = data;
+          //console.log(data);
+          this.listaPerson = data.map((person) => ({
+            ...person,
+            createDate: dayjs(person.createDate).format(
+              'DD-MM-YYYY hh:mm:ss a'
+            ),
+          }));
         },
         error: (error) => {
           this.getList();
